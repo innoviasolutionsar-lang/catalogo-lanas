@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import type { GroupedProduct, ProductVariant } from '../types';
 import { WHATSAPP_NUMBER } from '../config';
+import { formatCLP } from '../utils/formatters';
 
 export interface CartItem {
   product: GroupedProduct;
@@ -33,16 +34,9 @@ interface CartDrawerProps {
 
 type DeliveryMethod = 'retiro' | 'envio';
 type PaymentMethod =
-  | 'Link de pago (Mercado Pago)'
-  | 'Transferencia bancaria'
+  | 'Transferencia electrónica'
+  | 'Link de pago (Mercado Pago / Webpay)'
   | 'Efectivo al retirar';
-
-function formatCurrency(amount: number): string {
-  const formatted = new Intl.NumberFormat('es-CL', {
-    maximumFractionDigits: 0,
-  }).format(amount);
-  return `$${formatted}`;
-}
 
 export const CartDrawer: React.FC<CartDrawerProps> = ({
   isOpen,
@@ -56,7 +50,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const [deliveryMethod, setDeliveryMethod] = useState<DeliveryMethod>('retiro');
   const [shippingAddress, setShippingAddress] = useState('');
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
-    'Link de pago (Mercado Pago)'
+    'Transferencia electrónica'
   );
 
   const [errors, setErrors] = useState<{
@@ -79,7 +73,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     }
 
     if (deliveryMethod === 'envio' && !shippingAddress.trim()) {
-      newErrors.shippingAddress = 'Por favor ingresá tu dirección de entrega.';
+      newErrors.shippingAddress = 'Por favor ingresá tu comuna y dirección de entrega.';
     }
 
     setErrors(newErrors);
@@ -103,7 +97,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         const subtotal = item.variant.precio * item.quantity;
         return `- ${item.quantity}x ${item.product.nombre} | Color: ${
           item.variant.color
-        } [ID: ${item.variant.id}] - ${formatCurrency(subtotal)}`;
+        } [ID: ${item.variant.id}] - ${formatCLP(subtotal)}`;
       })
       .join('\n');
 
@@ -116,7 +110,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 *Detalle del pedido:*
 ${detalleItems}
 
-*Total estimado:* ${formatCurrency(total)}
+*Total estimado:* ${formatCLP(total)}
 
 ¿Me confirmás disponibilidad para avanzar con el pago?`;
 
@@ -226,7 +220,7 @@ ${detalleItems}
                               </span>
                             </div>
                             <p className="text-[11px] text-[#B86B52] font-semibold mt-0.5">
-                              {formatCurrency(item.variant.precio)}
+                              {formatCLP(item.variant.precio)}
                             </p>
                           </div>
 
@@ -288,11 +282,11 @@ ${detalleItems}
                     Subtotal estimado
                   </span>
                   <span className="font-display text-lg font-bold text-[#2D2721]">
-                    {formatCurrency(total)}
+                    {formatCLP(total)}
                   </span>
                 </div>
 
-                {/* Formulario */}
+                {/* Formulario de Cierre */}
                 <div className="bg-white p-3 rounded-xl border border-[#E8E2D9] space-y-3 shadow-2xs">
                   <h3 className="font-display font-semibold text-xs text-[#2D2721] border-b border-[#F0EAE1] pb-1.5">
                     Datos para tu pedido
@@ -356,7 +350,7 @@ ${detalleItems}
                         />
                         <div className="flex items-center gap-1.5 text-xs">
                           <Store className="w-3 h-3 text-[#B86B52]" />
-                          <span>Retiro en el local (Talca)</span>
+                          <span>Retiro en el local</span>
                         </div>
                       </label>
 
@@ -385,11 +379,11 @@ ${detalleItems}
                     {deliveryMethod === 'envio' && (
                       <div className="mt-2 animate-in fade-in duration-200">
                         <label className="block text-[10px] font-medium text-[#2D2721] mb-1">
-                          Localidad y dirección <span className="text-[#C53030]">*</span>
+                          Comuna y dirección <span className="text-[#C53030]">*</span>
                         </label>
                         <input
                           type="text"
-                          placeholder="Ej. Talca Centro, Calle 1 Sur #1234"
+                          placeholder="Ej. Talca, Calle 1 Sur #1234"
                           value={shippingAddress}
                           onChange={(e) => {
                             setShippingAddress(e.target.value);
@@ -416,7 +410,7 @@ ${detalleItems}
                     )}
                   </div>
 
-                  {/* Pago */}
+                  {/* Medios de Pago */}
                   <div>
                     <label className="block text-[11px] font-medium text-[#2D2721] mb-1">
                       Medio de pago
@@ -424,14 +418,14 @@ ${detalleItems}
                     <div className="space-y-1">
                       {[
                         {
-                          id: 'Link de pago (Mercado Pago)',
-                          label: 'Link de pago (Mercado Pago)',
-                          icon: CreditCard,
+                          id: 'Transferencia electrónica',
+                          label: 'Transferencia electrónica',
+                          icon: Building2,
                         },
                         {
-                          id: 'Transferencia bancaria',
-                          label: 'Transferencia bancaria',
-                          icon: Building2,
+                          id: 'Link de pago (Mercado Pago / Webpay)',
+                          label: 'Link de pago (Mercado Pago / Webpay)',
+                          icon: CreditCard,
                         },
                         {
                           id: 'Efectivo al retirar',

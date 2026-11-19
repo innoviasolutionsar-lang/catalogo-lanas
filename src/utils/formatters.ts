@@ -1,11 +1,13 @@
 /**
- * Formatea un monto numérico a formato de pesos chilenos: "$ 4.500"
+ * Formatea un monto numérico a formato de Pesos Chilenos (CLP) sin decimales: "$4.500"
  */
 export function formatCLP(amount: number): string {
-  const formatted = new Intl.NumberFormat('es-CL', {
+  return new Intl.NumberFormat('es-CL', {
+    style: 'currency',
+    currency: 'CLP',
+    minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount);
-  return `$ ${formatted}`;
 }
 
 const COLOR_MAP: Record<string, string> = {
@@ -41,4 +43,3 @@ export function getColorHexFallback(name: string): string {
   const normalized = name.trim().toLowerCase();
   return COLOR_MAP[normalized] || '#D2C3B2';
 }
-
