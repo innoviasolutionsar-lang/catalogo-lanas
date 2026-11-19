@@ -95,9 +95,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     const detalleItems = items
       .map((item) => {
         const subtotal = item.variant.precio * item.quantity;
-        return `- ${item.quantity}x ${item.product.nombre} | Color: ${
-          item.variant.color
-        } [ID: ${item.variant.id}] - ${formatCLP(subtotal)}`;
+        return `- ${item.quantity}x ${item.product.nombre} | Color: ${item.variant.color
+          } [ID: ${item.variant.id}] - ${formatCLP(subtotal)}`;
       })
       .join('\n');
 
@@ -112,7 +111,7 @@ ${detalleItems}
 
 *Total estimado:* ${formatCLP(total)}
 
-¿Me confirmás disponibilidad para avanzar con el pago?`;
+¿Como avanzamos con el pago?`;
 
     const encoded = encodeURIComponent(message);
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, '_blank');
@@ -141,9 +140,8 @@ ${detalleItems}
                 <span className="text-[10px] text-[#786F66]">
                   {items.length === 0
                     ? '0 productos'
-                    : `${items.length} ${
-                        items.length === 1 ? 'ítem' : 'ítems'
-                      }`}
+                    : `${items.length} ${items.length === 1 ? 'ítem' : 'ítems'
+                    }`}
                 </span>
               </div>
             </div>
@@ -245,11 +243,10 @@ ${detalleItems}
                                 onClick={() =>
                                   onUpdateQuantity(item.variant.id, 1)
                                 }
-                                className={`px-1.5 py-0.5 text-[#786F66] hover:bg-white ${
-                                  isMaxStockReached
-                                    ? 'opacity-30 cursor-not-allowed'
-                                    : ''
-                                }`}
+                                className={`px-1.5 py-0.5 text-[#786F66] hover:bg-white ${isMaxStockReached
+                                  ? 'opacity-30 cursor-not-allowed'
+                                  : ''
+                                  }`}
                                 title={
                                   isMaxStockReached
                                     ? `Máximo: ${item.variant.stock}`
@@ -307,11 +304,10 @@ ${detalleItems}
                           setErrors((prev) => ({ ...prev, clientName: undefined }));
                         }
                       }}
-                      className={`w-full px-2.5 py-1.5 text-xs rounded-lg border bg-[#FAF8F5] text-[#2D2721] placeholder-[#A0968A] focus:outline-none focus:ring-1 transition-all ${
-                        errors.clientName
-                          ? 'border-[#C53030] focus:ring-[#C53030]/20'
-                          : 'border-[#E8E2D9] focus:border-[#B86B52] focus:ring-[#B86B52]/20'
-                      }`}
+                      className={`w-full px-2.5 py-1.5 text-xs rounded-lg border bg-[#FAF8F5] text-[#2D2721] placeholder-[#A0968A] focus:outline-none focus:ring-1 transition-all ${errors.clientName
+                        ? 'border-[#C53030] focus:ring-[#C53030]/20'
+                        : 'border-[#E8E2D9] focus:border-[#B86B52] focus:ring-[#B86B52]/20'
+                        }`}
                     />
                     {errors.clientName && (
                       <p className="text-[10px] text-[#C53030] mt-1 flex items-center gap-1">
@@ -328,11 +324,10 @@ ${detalleItems}
                     </label>
                     <div className="grid grid-cols-1 gap-1.5">
                       <label
-                        className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-all ${
-                          deliveryMethod === 'retiro'
-                            ? 'border-[#B86B52] bg-[#FAF0EC]/60 text-[#2D2721]'
-                            : 'border-[#E8E2D9] bg-[#FAF8F5] text-[#786F66]'
-                        }`}
+                        className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-all ${deliveryMethod === 'retiro'
+                          ? 'border-[#B86B52] bg-[#FAF0EC]/60 text-[#2D2721]'
+                          : 'border-[#E8E2D9] bg-[#FAF8F5] text-[#786F66]'
+                          }`}
                       >
                         <input
                           type="radio"
@@ -355,11 +350,10 @@ ${detalleItems}
                       </label>
 
                       <label
-                        className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-all ${
-                          deliveryMethod === 'envio'
-                            ? 'border-[#B86B52] bg-[#FAF0EC]/60 text-[#2D2721]'
-                            : 'border-[#E8E2D9] bg-[#FAF8F5] text-[#786F66]'
-                        }`}
+                        className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-all ${deliveryMethod === 'envio'
+                          ? 'border-[#B86B52] bg-[#FAF0EC]/60 text-[#2D2721]'
+                          : 'border-[#E8E2D9] bg-[#FAF8F5] text-[#786F66]'
+                          }`}
                       >
                         <input
                           type="radio"
@@ -394,11 +388,10 @@ ${detalleItems}
                               }));
                             }
                           }}
-                          className={`w-full px-2.5 py-1.5 text-xs rounded-lg border bg-[#FAF8F5] text-[#2D2721] placeholder-[#A0968A] focus:outline-none focus:ring-1 transition-all ${
-                            errors.shippingAddress
-                              ? 'border-[#C53030] focus:ring-[#C53030]/20'
-                              : 'border-[#E8E2D9] focus:border-[#B86B52] focus:ring-[#B86B52]/20'
-                          }`}
+                          className={`w-full px-2.5 py-1.5 text-xs rounded-lg border bg-[#FAF8F5] text-[#2D2721] placeholder-[#A0968A] focus:outline-none focus:ring-1 transition-all ${errors.shippingAddress
+                            ? 'border-[#C53030] focus:ring-[#C53030]/20'
+                            : 'border-[#E8E2D9] focus:border-[#B86B52] focus:ring-[#B86B52]/20'
+                            }`}
                         />
                         {errors.shippingAddress && (
                           <p className="text-[10px] text-[#C53030] mt-1 flex items-center gap-1">
@@ -438,11 +431,10 @@ ${detalleItems}
                         return (
                           <label
                             key={item.id}
-                            className={`flex items-center gap-2 p-1.5 rounded-lg border cursor-pointer transition-all ${
-                              isSelected
-                                ? 'border-[#B86B52] bg-[#FAF0EC]/60 text-[#2D2721]'
-                                : 'border-[#E8E2D9] bg-[#FAF8F5] text-[#786F66]'
-                            }`}
+                            className={`flex items-center gap-2 p-1.5 rounded-lg border cursor-pointer transition-all ${isSelected
+                              ? 'border-[#B86B52] bg-[#FAF0EC]/60 text-[#2D2721]'
+                              : 'border-[#E8E2D9] bg-[#FAF8F5] text-[#786F66]'
+                              }`}
                           >
                             <input
                               type="radio"
